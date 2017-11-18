@@ -1,0 +1,338 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>NEMA-0183 · GPS轨迹重现文档</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="SHLLL">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="mercator.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../part1/">
+            
+                <a href="../part1/">
+            
+                    
+                    实验方案
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    预备知识
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.1" data-path="nema.html">
+            
+                <a href="nema.html">
+            
+                    
+                    NEMA-0183
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="mercator.html">
+            
+                <a href="mercator.html">
+            
+                    
+                    坐标投影变换
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="tms.html">
+            
+                <a href="tms.html">
+            
+                    
+                    瓦片地图服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../part3/">
+            
+                <a href="../part3/">
+            
+                    
+                    WEB端设计
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >NEMA-0183</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="nema-0183&#x6807;&#x51C6;">NEMA-0183&#x6807;&#x51C6;</h1>
+<h2 id="&#x6807;&#x51C6;&#x7B80;&#x4ECB;">&#x6807;&#x51C6;&#x7B80;&#x4ECB;</h2>
+<p>GPS&#x6570;&#x636E;&#x9075;&#x5FAA;NMEA-0183&#x534F;&#x8BAE;&#xFF0C;&#x8BE5;&#x6570;&#x636E;&#x6807;&#x51C6;&#x662F;&#x7531;NMEA&#xFF08;National Marine Electronics Association&#xFF0C;&#x7F8E;&#x56FD;&#x56FD;&#x5BB6;&#x6D77;&#x4E8B;&#x7535;&#x5B50;&#x534F;&#x4F1A;&#xFF09;&#x4E8E;1983&#x5E74;&#x5236;&#x5B9A;&#x7684;&#x3002;&#x7EDF;&#x4E00;&#x6807;&#x51C6;&#x683C;&#x5F0F;NMEA-0183&#x8F93;&#x51FA;&#x91C7;&#x7528;ASCII &#x7801;&#xFF0C;&#x5176;&#x4E32;&#x884C;&#x901A;&#x4FE1;&#x7684;&#x53C2;&#x6570;&#x4E3A;&#xFF1A;&#x6CE2;&#x7279;&#x7387;&#xFF1D;4800bps&#xFF0C;&#x6570;&#x636E;&#x4F4D;&#xFF1D;8bit&#xFF0C;&#x5F00;&#x59CB;&#x4F4D;=1bit&#xFF0C;&#x505C;&#x6B62;&#x4F4D;&#xFF1D;1bit&#xFF0C;&#x65E0;&#x5947;&#x5076;&#x6821;&#x9A8C;&#x3002;
+&#x6570;&#x636E;&#x4F20;&#x8F93;&#x4EE5;&#x201C;&#x8BED;&#x53E5;&#x201D;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#xFF0C;&#x6BCF;&#x4E2A;&#x8BED;&#x53E5;&#x5747;&#x4EE5;&#x201C;$&#x201D;&#x5F00;&#x5934;&#xFF0C;&#x7136;&#x540E;&#x662F;&#x4E24;&#x4E2A;&#x5B57;&#x6BCD;&#x7684;&#x201C;&#x8BC6;&#x522B;&#x7B26;&#x201D;&#x548C;&#x4E09;&#x4E2A;&#x5B57;&#x6BCD;&#x7684;&#x201C;&#x8BED;&#x53E5;&#x540D;&#x201D;&#xFF0C;&#x63A5;&#x7740;&#x5C31;&#x662F;&#x4EE5;&#x9017;&#x53F7;&#x5206;&#x5272;&#x7684;&#x6570;&#x636E;&#x4F53;&#xFF0C;&#x8BED;&#x53E5;&#x672B;&#x5C3E;&#x4E3A;&#x6821;&#x9A8C;&#x548C;&#xFF0C;&#x6574;&#x6761;&#x8BED;&#x53E5;&#x4EE5;&#x56DE;&#x8F66;&#x6362;&#x884C;&#x7B26;&#x7ED3;&#x675F;&#x3002;NMEA-0183&#x7684;&#x6570;&#x636E;&#x4FE1;&#x606F;&#x6709;&#x5341;&#x51E0;&#x79CD;&#xFF0C;&#x8FD9;&#x4E9B;&#x4FE1;&#x606F;&#x7684;&#x4F5C;&#x7528;&#x5206;&#x522B;&#x662F;&#xFF1A;$GPGGA&#xFF1A;&#x8F93;&#x51FA;GPS&#x7684;&#x5B9A;&#x4F4D;&#x4FE1;&#x606F;&#xFF1B;$GPGLL&#xFF1A;&#x8F93;&#x51FA;&#x5927;&#x5730;&#x5750;&#x6807;&#x4FE1;&#x606F;&#xFF1B;$GPZDA&#xFF1A;&#x8F93;&#x51FA;UTC&#x65F6;&#x95F4;&#x4FE1;&#x606F;&#xFF1B;$GPGSV&#xFF1A;&#x8F93;&#x51FA;&#x53EF;&#x89C1;&#x7684;&#x536B;&#x661F;&#x4FE1;&#x606F;&#xFF1B;$GPGST&#xFF1A;&#x8F93;&#x51FA;&#x5B9A;&#x4F4D;&#x6807;&#x51C6;&#x5DEE;&#x4FE1;&#x606F;&#xFF1B;$GPGSA&#xFF1A;&#x8F93;&#x51FA;&#x536B;&#x661F;DOP&#x503C;&#x4FE1;&#x606F;&#xFF1B;$GPALM&#xFF1A;&#x8F93;&#x51FA;&#x536B;&#x661F;&#x661F;&#x5386;&#x4FE1;&#x606F;&#xFF1B;$GPRMC&#xFF1A;&#x8F93;&#x51FA;GPS&#x63A8;&#x8350;&#x7684;&#x6700;&#x77ED;&#x6570;&#x636E;&#x4FE1;&#x606F;&#x7B49;&#x3002;</p>
+<h2 id="&#x8BED;&#x53E5;&#x4ECB;&#x7ECD;">&#x8BED;&#x53E5;&#x4ECB;&#x7ECD;</h2>
+<p>&#x5728;&#x672C;&#x5B9E;&#x9A8C;&#x4E2D;&#xFF0C;$GPRMC&#x8BED;&#x53E5;&#x5C31;&#x8DB3;&#x591F;&#x6211;&#x4EEC;&#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x8BE5;&#x8BED;&#x53E5;&#x7684;&#x8BE6;&#x7EC6;&#x5B9A;&#x4E49;&#x5982;&#x4E0B;&#xFF1A;
+$GPRMC&#xFF0C;<1>&#xFF0C;<2>&#xFF0C;<3>&#xFF0C;<4>&#xFF0C;<5>&#xFF0C;<6>&#xFF0C;<7>&#xFF0C;<8>&#xFF0C;<9>&#xFF0C;<10>&#xFF0C;&#xFF0C;<12>
+&#x5B57;&#x6BB5; $GPRMC&#x8BED;&#x53E5;&#x610F;&#x4E49;&#x2014;&#x2014;&#x53D6;&#x503C;&#x8303;&#x56F4;</12></10></9></8></7></6></5></4></3></2></1></p>
+<p><1> UTC&#x65F6;&#x95F4;&#xFF1A;hhmmss.ss&#x2014;&#x2014;000000.00~235959.99</1></p>
+<p><2> &#x72B6;&#x6001;&#xFF0C;&#x6709;&#x6548;&#x6027; &#x2014;&#x2014;A&#x8868;&#x793A;&#x6709;&#x6548;&#xFF1B;V&#x8868;&#x793A;&#x65E0;&#x6548;</2></p>
+<p><3> &#x7EAC;&#x5EA6;&#x683C;&#x5F0F;&#xFF1A;ddmm.mmmm&#x2014;&#x2014;0000&#xFF0E;00000~8959.9999 &#xFF08;&#x6807;&#x51C6;&#x7684;&#x5EA6;&#x5206;&#x683C;&#x5F0F;&#xFF09;</3></p>
+<p><4> &#x5357;&#x5317;&#x534A;&#x7403;&#x2014;&#x2014;N&#x5317;&#x7EAC;&#xFF1B;S&#x5357;&#x7EAC;</4></p>
+<p><5> &#x7ECF;&#x5EA6;&#x683C;&#x5F0F;&#xFF1A;dddmm.mmmm&#x2014;&#x2014;00000.0000~17959.9999 &#xFF08;&#x6807;&#x51C6;&#x7684;&#x5EA6;&#x5206;&#x683C;&#x5F0F;&#xFF09;</5></p>
+<p><6> &#x4E1C;&#x897F;&#x534A;&#x7403;&#x2014;&#x2014;E&#x8868;&#x793A;&#x4E1C;&#x7ECF;&#xFF1B;W&#x8868;&#x793A;&#x897F;&#x7ECF;</6></p>
+<p><7> &#x5730;&#x9762;&#x901F;&#x5EA6;&#x2014;&#x2014;000.00~999.999</7></p>
+<p><8> &#x901F;&#x5EA6;&#x65B9;&#x5411;&#x2014;&#x2014;000.00~359.99</8></p>
+<p><9> &#x65E5;&#x671F;&#x683C;&#x5F0F;&#xFF0C;&#x6708;&#x65E5;&#x5E74;&#x2014;&#x2014;010100~123199</9></p>
+<p><10> &#x78C1;&#x504F;&#x89D2;&#xFF0C;&#x5355;&#x4F4D;&#xFF1A;&#x5EA6;&#x2014;&#x2014;00.00~99.99 &#x78C1;&#x504F;&#x89D2;&#x65B9;&#x5411;&#x2014;&#x2014;E&#x8868;&#x793A;&#x4E1C;&#xFF1B;W&#x8868;&#x793A;&#x897F;</10></p>
+<p><12> &#x6A21;&#x5F0F;&#x6307;&#x793A;&#x53CA;&#x6821;&#x9A8C;&#x548C;&#x2014;&#x2014; A=&#x81EA;&#x4E3B;&#x5B9A;&#x4F4D;&#xFF0C;D=&#x5DEE;&#x5206;&#xFF0C;E=&#x4F30;&#x7B97;&#xFF0C;N=&#x6570;&#x636E;&#x65E0;&#x6548;<br>&#x4F8B;&#x5982;&#xFF1A;$GPRMC,074529.82,A,2429.6717,N,11804.6973,E,12.623,32.122,010806,,W,A*08</12></p>
+<h2 id="&#x5C0F;&#x7ED3;">&#x5C0F;&#x7ED3;</h2>
+<p>&#x7EFC;&#x4E0A;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x5176;&#x5B9E;&#x53EA;&#x9700;&#x8981;&#x63D0;&#x53D6;&#x51FA;GPS&#x6570;&#x636E;&#x6587;&#x4EF6;&#x4E2D;GPRMC&#x8BED;&#x53E5;&#x4E2D;&#x7684;&#x7ECF;&#x5EA6;&#x3001;&#x7EAC;&#x5EA6;&#x4EE5;&#x53CA;&#x901F;&#x5EA6;&#x8FD9;&#x4E09;&#x4E2A;&#x6570;&#x636E;&#x5C31;&#x53EF;&#x4EE5;&#x6EE1;&#x8DB3;&#x672C;&#x5B9E;&#x9A8C;&#x7684;&#x8981;&#x6C42;&#x3002;&#x4E0D;&#x8FC7;&#x6211;&#x4EEC;&#x8FD8;&#x8981;&#x6CE8;&#x610F;&#x5230;&#x7531;&#x4E8E;GPRMC&#x8BED;&#x53E5;&#x4E2D;&#x7ECF;&#x7EAC;&#x5EA6;&#x683C;&#x5F0F;&#x662F;<strong>&#x5EA6;&#x5206;&#x683C;&#x5F0F;</strong>&#x7684;&#xFF0C;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x5C06;&#x5176;&#x53D8;&#x6362;&#x4E3A;&#x5EA6;&#x540E;&#x518D;&#x8FDB;&#x884C;&#x4F7F;&#x7528;&#x3002;&#x800C;&#x901F;&#x5EA6;&#x7684;&#x5355;&#x4F4D;&#x662F;&#x201C;&#x8282;&#x201D;&#xFF0C;&#x4E5F;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x8F6C;&#x6362;&#x4E3A;&#x901A;&#x7528;&#x7684;Km/h&#x540E;&#x518D;&#x4F7F;&#x7528;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: 预备知识">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="mercator.html" class="navigation navigation-next " aria-label="Next page: 坐标投影变换">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"NEMA-0183","level":"1.3.1","depth":2,"next":{"title":"坐标投影变换","level":"1.3.2","depth":2,"path":"part2/mercator.md","ref":"part2/mercator.md","articles":[]},"previous":{"title":"预备知识","level":"1.3","depth":1,"path":"part2/README.md","ref":"part2/README.md","articles":[{"title":"NEMA-0183","level":"1.3.1","depth":2,"path":"part2/nema.md","ref":"part2/nema.md","articles":[]},{"title":"坐标投影变换","level":"1.3.2","depth":2,"path":"part2/mercator.md","ref":"part2/mercator.md","articles":[]},{"title":"瓦片地图服务","level":"1.3.3","depth":2,"path":"part2/tms.md","ref":"part2/tms.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["katex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"katex":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"SHLLL","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GPS轨迹重现文档","language":"zh-hans","gitbook":">= 3.0.0","description":"简单的GIS知识介绍和GPS轨迹重现资料"},"file":{"path":"part2/nema.md","mtime":"2017-11-17T19:25:19.095Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-11-18T12:52:50.768Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
