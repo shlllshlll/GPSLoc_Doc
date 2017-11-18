@@ -1,0 +1,9 @@
+{
+    "gitbook": ">= 3.0.0",
+    "title": "GPS轨迹重现文档",
+    "description": "简单的GIS知识介绍和GPS轨迹重现资料",
+    "author": "SHLLL",
+    "language": "zh-hans",
+    "plugins": ["katex"],
+    "pluginsConfig": {}
+}

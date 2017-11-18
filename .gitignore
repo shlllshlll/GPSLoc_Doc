@@ -1,0 +1,16 @@
+# 忽略grunt缓存文件
+/.grunt/
+# 忽略NPM模块文件
+/node_modules/
+# 忽略Sublime工程文件
+*.sublime-project
+*.sublime-workspace
+# 忽略gitbook生成文件夹
+/_book/
+# 忽略eBook输出
+/_build/
+*.epub
+*.mobi
+*.pdf
+# 忽略sh文件
+publish_gitbook.sh
